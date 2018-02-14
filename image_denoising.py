@@ -68,8 +68,8 @@ for i in range(n):
 
 plt.show()
 
-# take a look at the 128-dimensional encoded representation
-# these representations are 8x4x4, so we reshape them to 4x32 in order to be able to display them as grayscale images
+# take a look at the x-dimensional encoded representation
+# these representations are 32x7x7, so we reshape them in order to be able to display them as grayscale images
 
 encoder = Model(input_img, encoded)
 encoded_imgs = encoder.predict(x_test)
