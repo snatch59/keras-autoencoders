@@ -4,6 +4,7 @@ from keras.datasets import mnist
 from keras import backend as K
 import numpy as np
 import matplotlib.pyplot as plt
+import pickle
 
 # Deep Autoencoder
 
@@ -72,6 +73,9 @@ autoencoder.fit(x_train, x_train, epochs=my_epochs, batch_size=256, shuffle=True
 # note that we take them from the *test* set
 encoded_imgs = encoder.predict(x_test)
 decoded_imgs = decoder.predict(encoded_imgs)
+
+# save latent space features 32-d vector
+pickle.dump(encoded_imgs, open('deep_autoe_features.pickle', 'wb'))
 
 n = 10  # how many digits we will display
 plt.figure(figsize=(10, 2), dpi=100)

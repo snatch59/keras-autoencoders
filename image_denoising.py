@@ -5,6 +5,7 @@ from keras.callbacks import TensorBoard
 from keras import backend as K
 import numpy as np
 import matplotlib.pyplot as plt
+import pickle
 
 input_img = Input(shape=(28, 28, 1))    # adapt this if using 'channels_first' image data format
 
@@ -73,6 +74,9 @@ plt.show()
 
 encoder = Model(input_img, encoded)
 encoded_imgs = encoder.predict(x_test)
+
+# save latent space features 1568-d vector
+pickle.dump(encoded_imgs, open('denoise_autoe_features.pickle', 'wb'))
 
 n = 10
 plt.figure(figsize=(10, 4), dpi=100)

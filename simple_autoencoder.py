@@ -5,12 +5,14 @@ from keras.datasets import mnist
 from keras import backend as K
 import numpy as np
 import matplotlib.pyplot as plt
+import pickle
 
 # Single fully-connected neural layer as encoder and decoder
 
-use_regularizer = False
+use_regularizer = True
 my_regularizer = None
 my_epochs = 50
+pickle_path = 'simple_autoe_features.pickle'
 
 if use_regularizer:
     # add a sparsity constraint on the encoded representations
@@ -19,6 +21,7 @@ if use_regularizer:
     # and a larger number of epochs as the added regularization the model
     # is less likely to overfit and can be trained longer
     my_epochs = 100
+    pickle_path = 'reg_autoe_features.pickle'
 
 # this is the size of our encoded representations
 encoding_dim = 32   # 32 floats -> compression factor 24.5, assuming the input is 784 floats
@@ -77,6 +80,9 @@ autoencoder.fit(x_train, x_train, epochs=my_epochs, batch_size=256, shuffle=True
 # note that we take them from the *test* set
 encoded_imgs = encoder.predict(x_test)
 decoded_imgs = decoder.predict(encoded_imgs)
+
+# save latent space features 32-d vector
+pickle.dump(encoded_imgs, open(pickle_path, 'wb'))
 
 n = 10  # how many digits we will display
 plt.figure(figsize=(10, 2), dpi=100)
