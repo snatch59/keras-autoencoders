@@ -70,7 +70,8 @@ print(x_test.shape)
 
 # Train autoencoder for 50 epochs
 
-autoencoder.fit(x_train, x_train, epochs=my_epochs, batch_size=256, shuffle=True, validation_data=(x_test, x_test))
+autoencoder.fit(x_train, x_train, epochs=my_epochs, batch_size=256, shuffle=True, validation_data=(x_test, x_test),
+                verbose=2)
 
 # after 50/100 epochs the autoencoder seems to reach a stable train/test lost value
 

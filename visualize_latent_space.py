@@ -38,6 +38,7 @@ else:
         print('Nothing found ...')
 
 if tsne_features.any():
+    plt.figure(figsize=(6, 6), dpi=100)
     plt.scatter(tsne_features[:, 0], tsne_features[:, 1], c="g", edgecolors='none')
     plt.title(os.path.splitext(tsne_features_path)[0])
     plt.show()
