@@ -37,7 +37,7 @@ network has to learn to extract the most relevant features in the bottleneck.
 
 A great explanation by Julien Despois on Latent space visualization can
 be found **[here](https://medium.com/@juliendespois/latent-space-visualization-deep-learning-bits-2-bd09a46920df)**,
-and from which I nicked the above explanation!
+and from where I nicked the above explanation and diagram!
 
 The visualizations are created by carrying out dimensionality reduction
 on the 32-d (or 128-d) features using t-distributed stochastic neighbor
@@ -51,9 +51,12 @@ appropriate feature :-( .
 
 Here a are some 32-d examples:
 
-![](assets/simple_autoe_tsne.png)
+![simple autoencoder latent space](assets/simple_autoe_tsne.png)
 
-![](assets/reg_autoe_tsne.png)
+![sparse autoencoder latent space](assets/sparse_autoe_tsne.png)
 
-![](assets/deep_autoe_tsne.png)
+![deep autoencoder latent space](assets/deep_autoe_tsne.png)
 
+And the output from the 2-d VAE latent space output:
+
+![variational autoencoder latent space](assets/variational_autoe_lspace.png) 

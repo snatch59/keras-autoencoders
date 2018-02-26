@@ -23,7 +23,6 @@ intermediate_dim = 256
 epochs = 50
 epsilon_std = 1.0
 
-
 x = Input(shape=(original_dim,))
 h = Dense(intermediate_dim, activation='relu')(x)
 z_mean = Dense(latent_dim)(h)
@@ -35,6 +34,7 @@ def sampling(args):
     epsilon = K.random_normal(shape=(K.shape(z_mean)[0], latent_dim), mean=0.,
                               stddev=epsilon_std)
     return z_mean + K.exp(z_log_var / 2) * epsilon
+
 
 # note that "output_shape" isn't necessary with the TensorFlow backend
 z = Lambda(sampling, output_shape=(latent_dim,))([z_mean, z_log_var])
@@ -57,9 +57,8 @@ vae.add_loss(vae_loss)
 vae.compile(optimizer='rmsprop')
 vae.summary()
 
-
 # train the VAE on MNIST digits
-(x_train, y_train), (x_test, y_test) = mnist.load_data()
+(x_train, _), (x_test, y_test) = mnist.load_data()
 
 x_train = x_train.astype('float32') / 255.
 x_test = x_test.astype('float32') / 255.
@@ -78,8 +77,9 @@ encoder = Model(x, z_mean)
 
 # display a 2D plot of the digit classes in the latent space
 x_test_encoded = encoder.predict(x_test, batch_size=batch_size)
-plt.figure(figsize=(6, 6))
+plt.figure(figsize=(8, 6), dpi=100)
 plt.scatter(x_test_encoded[:, 0], x_test_encoded[:, 1], c=y_test)
+plt.title('Variational Autoencoder')
 plt.colorbar()
 plt.show()
 

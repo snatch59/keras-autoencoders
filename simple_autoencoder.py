@@ -12,7 +12,8 @@ import pickle
 use_regularizer = True
 my_regularizer = None
 my_epochs = 50
-pickle_path = 'simple_autoe_features.pickle'
+features_path = 'simple_autoe_features.pickle'
+labels_path = 'simple_autoe_labels.pickle'
 
 if use_regularizer:
     # add a sparsity constraint on the encoded representations
@@ -21,7 +22,8 @@ if use_regularizer:
     # and a larger number of epochs as the added regularization the model
     # is less likely to overfit and can be trained longer
     my_epochs = 100
-    pickle_path = 'reg_autoe_features.pickle'
+    features_path = 'sparse_autoe_features.pickle'
+    labels_path = 'sparse_autoe_labels.pickle'
 
 # this is the size of our encoded representations
 encoding_dim = 32   # 32 floats -> compression factor 24.5, assuming the input is 784 floats
@@ -58,7 +60,7 @@ decoder = Model(encoded_input, decoder_layer(encoded_input))
 autoencoder.compile(optimizer='adadelta', loss='binary_crossentropy')
 
 # prepare input data
-(x_train, _), (x_test, _) = mnist.load_data()
+(x_train, _), (x_test, y_test) = mnist.load_data()
 
 # normalize all values between 0 and 1 and flatten the 28x28 images into vectors of size 784
 x_train = x_train.astype('float32') / 255.
@@ -83,7 +85,8 @@ encoded_imgs = encoder.predict(x_test)
 decoded_imgs = decoder.predict(encoded_imgs)
 
 # save latent space features 32-d vector
-pickle.dump(encoded_imgs, open(pickle_path, 'wb'))
+pickle.dump(encoded_imgs, open(features_path, 'wb'))
+pickle.dump(y_test, open(labels_path, 'wb'))
 
 n = 10  # how many digits we will display
 plt.figure(figsize=(10, 2), dpi=100)

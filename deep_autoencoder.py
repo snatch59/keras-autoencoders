@@ -8,6 +8,9 @@ import pickle
 
 # Deep Autoencoder
 
+features_path = 'deep_autoe_features.pickle'
+labels_path = 'deep_autoe_labels.pickle'
+
 # this is the size of our encoded representations
 encoding_dim = 32   # 32 floats -> compression factor 24.5, assuming the input is 784 floats
 
@@ -51,7 +54,7 @@ decoder = Model(encoded_input, decoder_layer3(decoder_layer2(decoder_layer1(enco
 autoencoder.compile(optimizer='adadelta', loss='binary_crossentropy')
 
 # prepare input data
-(x_train, _), (x_test, _) = mnist.load_data()
+(x_train, _), (x_test, y_test) = mnist.load_data()
 
 # normalize all values between 0 and 1 and flatten the 28x28 images into vectors of size 784
 x_train = x_train.astype('float32') / 255.
@@ -76,7 +79,8 @@ encoded_imgs = encoder.predict(x_test)
 decoded_imgs = decoder.predict(encoded_imgs)
 
 # save latent space features 32-d vector
-pickle.dump(encoded_imgs, open('deep_autoe_features.pickle', 'wb'))
+pickle.dump(encoded_imgs, open(features_path, 'wb'))
+pickle.dump(y_test, open(labels_path, 'wb'))
 
 n = 10  # how many digits we will display
 plt.figure(figsize=(10, 2), dpi=100)
