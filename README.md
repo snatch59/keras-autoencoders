@@ -10,6 +10,7 @@ These examples are:
 * A convolutional autoencoder: convolutional\_autoencoder.py
 * An image denoising autoencoder: image\_desnoising.py
 * A variational autoencoder (VAE): variational\_autoencoder.py
+* A variational autoecoder with deconvolutional layers: variational\_autoencoder\_deconv.py
 
 All the scripts use the ubiquitous MNIST hardwritten digit data set,
 and have been run under Python 3.5 and Keras 2.1.4 with a TensorFlow 1.5
@@ -59,4 +60,6 @@ Here a are some 32-d examples:
 
 And the output from the 2-d VAE latent space output:
 
-![variational autoencoder latent space](assets/variational_autoe_lspace.png) 
+![variational autoencoder latent space](assets/variational_autoe_lspace.png)
+
+![variational autoencoder latent space](assets/variational_autoe_deconv_lspace.png)

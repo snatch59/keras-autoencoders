@@ -1,4 +1,5 @@
-"""This script demonstrates how to build a variational autoencoder with Keras.
+"""
+ This script demonstrates how to build a variational autoencoder with Keras.
 
  #Reference
 
@@ -31,8 +32,7 @@ z_log_var = Dense(latent_dim)(h)
 
 def sampling(args):
     z_mean, z_log_var = args
-    epsilon = K.random_normal(shape=(K.shape(z_mean)[0], latent_dim), mean=0.,
-                              stddev=epsilon_std)
+    epsilon = K.random_normal(shape=(K.shape(z_mean)[0], latent_dim), mean=0., stddev=epsilon_std)
     return z_mean + K.exp(z_log_var / 2) * epsilon
 
 
@@ -109,3 +109,5 @@ for i, yi in enumerate(grid_x):
 plt.figure(figsize=(10, 10), dpi=100)
 plt.imshow(figure, cmap='Greys_r')
 plt.show()
+
+K.clear_session()
